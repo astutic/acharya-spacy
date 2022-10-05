@@ -7,7 +7,7 @@ train:
         input: data/trainfile.conll
         output: stdout
 eval:
-        cmd: python3 test_model.py
-        type: cmd
-        input: data/testfile.conll
-        output: stdout
+        cmd: python3 evaluate_model.py
+        type: service
+        input: "tcp::5566"
+        output: "tcp::5566"
