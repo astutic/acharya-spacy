@@ -9,5 +9,6 @@ RUN pip3 install -r /requirements.txt
 
 WORKDIR /root
 COPY config.yaml .
+COPY evaluate_model.py .
 RUN mkdir -p data/
 RUN mkdir -p models/
