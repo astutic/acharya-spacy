@@ -25,6 +25,7 @@ logging.info(logPrefix + "Listening on 127.0.0.1:5566")
 s.listen(1)
 
 ner = spacy.load("models/model-best")
+# ner = spacy.load("en_core_web_trf")
 
 while True:
     logging.info(logPrefix + "Waiting for connection on 127.0.0.1:5566")
@@ -40,19 +41,30 @@ while True:
         binaryData += data 
 
     evalData = binaryData.decode("utf-8")
-    logging.info(logPrefix + "Received record for evaluation with len: %d", len(evalData))
 
     #Converting from conll evaluation data to plain txt
-    evalRecord = " ".join(evalData.split("\n"))
+    def getWord(line):
+        lineData = line.split()
+        if len(lineData) > 0:
+            return lineData[0]
+        return line
+
+    evalRecord = " ".join(map(getWord, evalData.split("\n")))
+    logging.info(logPrefix + "Received record for evaluation %s with len: %d", evalData, len(evalData))
 
     doc = ner(evalRecord)
     logging.info(logPrefix + "processing ner..")
 
-    entities = [[ent.start_char, ent.end_char, ent.label_, ent.text] for ent in doc.ents]
-    output = [e[0:3] for e in entities]
+    output = []
+    for tok in doc:
+        label = tok.ent_iob_
+        if label != "O":
+            label += '-' + tok.ent_type_
+        output.append("\t".join([str(tok), label]))
 
-    conn.sendall(json.dumps(output).encode("utf-8"))
     logging.info(output)
+    conn.sendall("\n".join(output).encode("utf-8"))
+
     logging.info(logPrefix + "Sent output done with the record")
     conn.close()
 
