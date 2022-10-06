@@ -2,7 +2,7 @@ title: Spacy Algo config for Acharya
 owner: Astutic AI
 author: VM
 train:
-        cmd: python3 -m spacy convert data/trainfile.conll data/ -c conll && python3 -m spacy init config - --gpu --lang en --pipeline ner --optimize accuracy | python3 -m spacy train - --output models/ --paths.train ./data/trainfile.spacy --paths.dev ./data/trainfile.spacy --gpu-id 0
+        cmd: /usr/bin/sh train.sh
         type: cmd
         input: data/trainfile.conll
         output: stdout
