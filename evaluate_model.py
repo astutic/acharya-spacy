@@ -24,8 +24,44 @@ s.bind(('127.0.0.1', 5566))
 logging.info(logPrefix + "Listening on 127.0.0.1:5566")
 s.listen(1)
 
-ner = spacy.load("models/model-best")
-# ner = spacy.load("en_core_web_trf")
+
+
+# ner = spacy.load("models/model-best")
+ner = spacy.load("en_core_web_trf")
+
+ModelLabelsToCONLL = {
+    'CARDINAL':'MISC', 
+    'DATE':'MISC', 
+    'EVENT':'MISC', 
+    'FAC':'MISC',
+    'GPE':'LOC',
+    'LANGUAGE':'MISC',
+    'LAW':'MISC',
+    'LOC':'LOC',
+    'MONEY':'MISC',
+    'NORP':'MISC',
+    'ORDINAL':'MISC',
+    'ORG':'ORG',
+    'PERCENT':'O',
+    'PERSON':'PER',
+    'PRODUCT':'MISC',
+    'QUANTITY':'O',
+    'TIME':'O',
+    'WORK_OF_ART': 'O'
+}
+
+IsAcharyaLabelLoaded = False
+
+if os.path.exists('NEREntities.json'):
+    with open('NEREntities.json') as f:
+        AcharyaLabels = json.load(f)
+        IsAcharyaLabelLoaded = True
+
+def convert2AcharyaLabel(conllLabel):
+    if IsAcharyaLabelLoaded:
+        if conllLabel in AcharyaLabels['EntityMap']:
+            return AcharyaLabels['EntityMap'][conllLabel]['key']
+    return conllLabel
 
 while True:
     logging.info(logPrefix + "Waiting for connection on 127.0.0.1:5566")
@@ -59,7 +95,13 @@ while True:
     for tok in doc:
         label = tok.ent_iob_
         if label != "O":
-            label += '-' + tok.ent_type_
+            ent = "O"
+            if tok.ent_type_ in ModelLabelsToCONLL:
+                ent = convert2AcharyaLabel(ModelLabelsToCONLL[tok.ent_type_])
+            if ent != "O":
+                label += '-' + ent 
+            else:
+                label = "O"
         output.append("\t".join([str(tok), label]))
 
     logging.info(output)

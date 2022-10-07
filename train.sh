@@ -1,10 +1,7 @@
 #!/bin/sh
 
-echo "converting conll datafile to spacy DocBin..."
+echo "Download en_core_web_trf spacy model"
 
-python3 -m spacy convert data/trainfile.conll data/ -c conll
-
-echo "initializing config and begin training..."
-python3 -m spacy init config - --gpu --lang en --pipeline ner --optimize accuracy | python3 -m spacy train - --output models/ --paths.train ./data/trainfile.spacy --paths.dev ./data/trainfile.spacy --gpu-id 0
+python3 -m spacy download en_core_web_trf
 
 echo "training done..."
