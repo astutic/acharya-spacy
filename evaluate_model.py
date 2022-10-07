@@ -11,21 +11,12 @@ logpath = "parse_ner.log"
 
 logging.basicConfig(level=logging.DEBUG,
         filename=logpath,
-        filemode='w')
-
-logPrefix = "PID:%d:EVAL::" % os.getpid()
-
-logging.info(logPrefix + "Setting UP socket ...")
-
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-s.bind(('127.0.0.1', 5566))
-
-logging.info(logPrefix + "Listening on 127.0.0.1:5566")
-s.listen(1)
+        format='%(asctime)s PID:%(process)d LEVEL:%(levelname)s: %(message)s'
+        )
 
 
 
+logging.info("Loading model")
 # ner = spacy.load("models/model-best")
 ner = spacy.load("en_core_web_trf")
 
@@ -63,10 +54,19 @@ def convert2AcharyaLabel(conllLabel):
             return AcharyaLabels['EntityMap'][conllLabel]['key']
     return conllLabel
 
+logging.info("Setting UP socket ...")
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.bind(('127.0.0.1', 5566))
+
+logging.info("Listening on 127.0.0.1:5566")
+s.listen(1)
+
 while True:
-    logging.info(logPrefix + "Waiting for connection on 127.0.0.1:5566")
+    logging.info("Waiting for connection on 127.0.0.1:5566")
     conn, addr = s.accept()
-    logging.info(logPrefix + "Got connection from %s", addr)
+    logging.info("Got connection from %s", addr)
 
     binaryData = b''
 
@@ -86,10 +86,10 @@ while True:
         return line
 
     evalRecord = " ".join(map(getWord, evalData.split("\n")))
-    logging.info(logPrefix + "Received record for evaluation %s with len: %d", evalData, len(evalData))
+    logging.info("Received record for evaluation %s with len: %d", evalData, len(evalData))
 
     doc = ner(evalRecord)
-    logging.info(logPrefix + "processing ner..")
+    logging.info("processing ner..")
 
     output = []
     for tok in doc:
@@ -107,7 +107,7 @@ while True:
     logging.info(output)
     conn.sendall("\n".join(output).encode("utf-8"))
 
-    logging.info(logPrefix + "Sent output done with the record")
+    logging.info("Sent output done with the record")
     conn.close()
 
 
