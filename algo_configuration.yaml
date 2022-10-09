@@ -20,6 +20,7 @@ AlgoDetails:
   ConfigPath: config.yaml
   AlgoOutput:
     - /root/.cache
+    - /root/NEREntities.json
   RestoreOutput: True
   Logs:
     - /root/parse_ner.log
