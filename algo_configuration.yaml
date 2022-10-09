@@ -19,7 +19,7 @@ AlgoDetails:
   DockerfilePath: Dockerfile
   ConfigPath: config.yaml
   AlgoOutput:
-    - /models
+    - /root/.cache
   RestoreOutput: True
   Logs:
     - /root/parse_ner.log
