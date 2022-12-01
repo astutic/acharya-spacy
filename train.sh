@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo "Download en_core_web_trf spacy model"
+echo "We are using a downloaded model, in this example we are not training the model..."
+echo "training done ..."
 
-python3 -m spacy download en_core_web_trf
-
-echo "training done..."
