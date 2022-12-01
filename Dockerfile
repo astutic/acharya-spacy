@@ -8,6 +8,8 @@ COPY requirements.txt /
 RUN pip3 install -r /requirements.txt
 
 WORKDIR /root
+RUN python3 -m spacy download en_core_web_trf
+
 COPY config.yaml .
 COPY train.sh .
 RUN chmod +x train.sh
