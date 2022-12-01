@@ -1,2 +1,1 @@
-cupy-cuda114
-spacy[cuda114, transformers,lookups]
+spacy[transformers,lookups]
