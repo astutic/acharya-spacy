@@ -10,11 +10,10 @@ Details:
   Debug: True
   DockerHost: localhost
   DockerHostPort: 2375
-  Runtime: nvidia
 AlgoFrom: Git #(local/remote)
 AlgoDetails:
   Path: https://github.com/astutic/acharya-spacy.git
-  Branch: PreModelEval
+  Branch: PreModelEvalCPU
   Auth: None #(http/ssh/None)
   DockerfilePath: Dockerfile
   ConfigPath: config.yaml
