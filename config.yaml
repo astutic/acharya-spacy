@@ -2,7 +2,7 @@ title: Spacy Algo config for Acharya
 owner: Astutic AI
 author: VM
 train:
-        cmd: /usr/bin/sh train.sh
+        cmd: /bin/sh train.sh
         type: cmd
         input: data/trainfile.conll
         output: stdout
