@@ -1,7 +1,7 @@
 Name: Spacy PreTrained
 Version: 1.0
 Owner: Astutic AI
-DataFormat: Conll2003
+DataFormat: CoNLL2003
 RunOn: Docker
 Details:
   Image: False
