@@ -1,4 +1,4 @@
-Name: Spacy v3 Cuda
+Name: Spacy Hindi NER with Cuda
 Version: 1.0
 Owner: Vimal Menon
 DataFormat: CoNLL2003
@@ -19,7 +19,7 @@ AlgoDetails:
   DockerfilePath: Dockerfile
   ConfigPath: config.yaml
   AlgoOutput:
-    - /models
+    - /root/models
   RestoreOutput: True
   Logs:
     - /root/parse_ner.log
