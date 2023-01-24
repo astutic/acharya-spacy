@@ -14,7 +14,7 @@ Details:
 AlgoFrom: Git #(local/remote)
 AlgoDetails:
   Path: https://github.com/astutic/acharya-spacy.git
-  Branch: setup
+  Branch: Spacy-hindi-ner
   Auth: None #(http/ssh/None)
   DockerfilePath: Dockerfile
   ConfigPath: config.yaml
