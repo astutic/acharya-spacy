@@ -10,6 +10,7 @@ RUN pip3 install -r /requirements.txt
 WORKDIR /root
 COPY config.yaml .
 COPY train.sh .
+COPY base_config.cfg .
 RUN chmod +x train.sh
 COPY evaluate_model.py .
 RUN mkdir -p data/
