@@ -1,4 +1,4 @@
-Name: Spacy Hindi NER with Cuda
+Name: Spacy Marathi NER on GPU
 Version: 1.0
 Owner: Astutic AI
 DataFormat: CoNLL2003
