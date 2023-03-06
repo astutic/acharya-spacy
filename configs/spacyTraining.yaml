@@ -1,0 +1,13 @@
+title: Spacy Algo config for Acharya
+owner: Astutic AI
+author: VM
+train:
+        cmd: /usr/bin/bash code/train.sh
+        type: cmd
+        input: data/trainfile.conll
+        output: stdout
+eval:
+        cmd: python3 code/evaluateModel.py
+        type: service
+        input: "tcp::5566"
+        output: "tcp::5566"

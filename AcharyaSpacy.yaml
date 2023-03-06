@@ -1,0 +1,30 @@
+Name: Spacy NER
+Version: 1.0
+Owner: Astutic AI
+DataFormat: CoNLL2003
+RunOn: Docker
+Details:
+  Image: False
+  Port: 7707/tcp # 22/TCP 
+  HostIP: 0.0.0.0
+  Debug: True
+  DockerHost: localhost
+  DockerHostPort: 2375
+  Runtime: nvidia
+  Env: 
+    - lang=en # use the 2 letter code for the language
+    - gpu_id=0 # The gpu-id, remove this line if training on CPU
+    - optimize=accuracy # optimize for accuracy or efficiency
+AlgoFrom: Git #(local/remote)
+AlgoDetails:
+  Path: https://github.com/astutic/acharya-spacy.git
+  Branch: main
+  Auth: None #(http/ssh/None)
+  DockerfilePath: Dockerfile
+  ConfigPath: configs/spacyTraining.yaml
+  AlgoOutput:
+    - /root/models
+  RestoreOutput: True
+  Logs:
+    - /root/logs/parse_ner.log
+  
