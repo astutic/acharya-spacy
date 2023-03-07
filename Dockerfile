@@ -8,8 +8,10 @@ COPY requirements.txt /
 RUN pip3 install -r /requirements.txt
 
 WORKDIR /root
-COPY configs/ .
-COPY code/ .
+RUN mkdir -p code/
+RUN mkdir -p configs/
+COPY configs/ configs/.
+COPY code/ code/.
 RUN chmod +x code/*
 RUN mkdir -p data/
 RUN mkdir -p models/
