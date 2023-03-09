@@ -1,4 +1,5 @@
-FROM ubuntu:20.04
+ARG CUDAVERSION=11.4.2
+FROM nvidia/cuda:${CUDAVERSION}-devel-ubuntu20.04
 
 RUN apt-get update && apt-get install -y gcc musl-dev g++
 RUN apt-get install -y python3 python3-dev python3-pip
