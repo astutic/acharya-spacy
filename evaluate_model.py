@@ -21,17 +21,17 @@ logging.info("Loading model")
 ner = spacy.load("en_core_web_trf")
 
 ModelLabelsToCONLL = {
-    'CARDINAL':'MISC', 
-    'DATE':'MISC', 
+    'CARDINAL':'O', 
+    'DATE':'O', 
     'EVENT':'MISC', 
     'FAC':'MISC',
     'GPE':'LOC',
     'LANGUAGE':'MISC',
     'LAW':'MISC',
     'LOC':'LOC',
-    'MONEY':'MISC',
+    'MONEY':'O',
     'NORP':'MISC',
-    'ORDINAL':'MISC',
+    'ORDINAL':'O',
     'ORG':'ORG',
     'PERCENT':'O',
     'PERSON':'PER',
