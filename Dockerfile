@@ -1,4 +1,4 @@
-ARG CUDAVERSION=11.4.2
+ARG CUDAVERSION=11.4.3
 FROM nvidia/cuda:${CUDAVERSION}-devel-ubuntu20.04
 
 RUN apt-get update && apt-get install -y gcc musl-dev g++
